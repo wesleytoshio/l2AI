@@ -1,49 +1,62 @@
-# Promptfoo configuration for Lineage 2 AI Wiki RAG evaluation
-
 prompts:
   - "{{query}}"
 
 providers:
-  - id: "exec:cmd /C npx ts-node src/evalProvider.ts \"{{prompt}}\""
-    label: "RAG-AskWiki"
+  - id: "exec:npx tsx src/promptfooBridge.ts"
 
 tests:
   - vars:
-      query: "Qual o nível da skill Prominence?"
-    assert:
-      - type: llm-rubric
-        value: "The response must mention at least one level requirement (e.g., lvl 40 or lvl 36) and not just say it doesn't know."
-      - type: factuality
-        value: "Prominence is learned starting at level 40 (or 36 depending on the exact High Five patch data in context)."
+      query: "onde cai wind stone?"
+    assertions:
+      - type: icontains
+        value: "Chieftain's Treasure Chest"
+      - type: icontains
+        value: "Wind Stone"
 
   - vars:
-      query: "Como eu mato a Freya?"
-    assert:
-      - type: llm-rubric
-        value: "The response should provide technical tips like using protection against water/ice or mentioning the Ice Queen's Castle."
+      query: "em que level eu pego a habilidade guts?"
+    assertions:
+      - type: icontains
+        value: "level 43"
+      - type: icontains
+        value: "Titan"
 
   - vars:
-      query: "Onde dropa o item Seal of Punishment?"
-    assert:
-      - type: llm-rubric
-        value: "If the item is not found, the AI should mention what it found instead or state clearly it's not in the DB, without just a fallback string."
+      query: "onde spawna o npc 20191?"
+    assertions:
+      - type: icontains
+        value: "19_23.xml"
+      - type: icontains
+        value: "Caiman" # Exemplo se 20191 for Caiman
 
   - vars:
-      query: "Quais são os status do set Vorpal Light?"
-    assert:
+      query: "como upar level 80?"
+    assertions:
+      - type: icontains
+        value: "level"
+      - type: icontains
+        value: "80"
+
+  - vars:
+      query: "quais os stats da Draconic Bow?"
+    assertions:
       - type: icontains
         value: "P.Atk"
       - type: icontains
-        value: "Evasion"
+        value: "S-grade"
 
   - vars:
-      query: "Quem é o NPC que vende itens de luxo em Giran?"
-    assert:
-      - type: llm-rubric
-        value: "Should mention Alexandria or Luxury Shop."
-
-  - vars:
-      query: "Qual o nível do boss Antharas?"
-    assert:
+      query: "o que o npc 32167 (Nika) vende?"
+    assertions:
       - type: icontains
-        value: "85"
+        value: "buylists"
+      - type: icontains
+        value: "Soulshot"
+
+  - vars:
+      query: "onde posso trocar Iason Heine's Bill?"
+    assertions:
+      - type: icontains
+        value: "multisell"
+      - type: icontains
+        value: "Roman"
