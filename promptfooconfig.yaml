@@ -1,0 +1,49 @@
+# Promptfoo configuration for Lineage 2 AI Wiki RAG evaluation
+
+prompts:
+  - "{{query}}"
+
+providers:
+  - id: "exec:cmd /C npx ts-node src/evalProvider.ts \"{{prompt}}\""
+    label: "RAG-AskWiki"
+
+tests:
+  - vars:
+      query: "Qual o nível da skill Prominence?"
+    assert:
+      - type: llm-rubric
+        value: "The response must mention at least one level requirement (e.g., lvl 40 or lvl 36) and not just say it doesn't know."
+      - type: factuality
+        value: "Prominence is learned starting at level 40 (or 36 depending on the exact High Five patch data in context)."
+
+  - vars:
+      query: "Como eu mato a Freya?"
+    assert:
+      - type: llm-rubric
+        value: "The response should provide technical tips like using protection against water/ice or mentioning the Ice Queen's Castle."
+
+  - vars:
+      query: "Onde dropa o item Seal of Punishment?"
+    assert:
+      - type: llm-rubric
+        value: "If the item is not found, the AI should mention what it found instead or state clearly it's not in the DB, without just a fallback string."
+
+  - vars:
+      query: "Quais são os status do set Vorpal Light?"
+    assert:
+      - type: icontains
+        value: "P.Atk"
+      - type: icontains
+        value: "Evasion"
+
+  - vars:
+      query: "Quem é o NPC que vende itens de luxo em Giran?"
+    assert:
+      - type: llm-rubric
+        value: "Should mention Alexandria or Luxury Shop."
+
+  - vars:
+      query: "Qual o nível do boss Antharas?"
+    assert:
+      - type: icontains
+        value: "85"

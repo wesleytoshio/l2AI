@@ -1,0 +1,8 @@
+onlyBuiltDependencies:
+  - '@playwright/browser-chromium'
+  - '@swc/core'
+  - better-sqlite3
+  - esbuild
+  - onnxruntime-node
+  - protobufjs
+  - sharp

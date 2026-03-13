@@ -1,0 +1,32 @@
+# Node
+node_modules/
+dist/
+lib-cov/
+.grunt
+.lock-wscript
+package-lock.json
+pnpm-lock.yaml
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# Environment
+.env
+.env.test
+
+# Database Dumps (large files)
+*.sql
+!supabase/migrations/*.sql
+
+# Project-specific
+src/evalBridge.js
+.promptfoo/
+promptfoo_output_*.json
+
+# TypeScript
+*.tsbuildinfo
+
+# OS
+.DS_Store
+Thumbs.db
